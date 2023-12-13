@@ -2,17 +2,22 @@
 #  This compose file is used for local development and adapter testing only.
 #  See `/docker` for a generic and production-ready docker file
 ##
+# dbt seed --destiny/--freedom environments
+#     docker compose up -d --build
+# requirements:
+#     img2txt
+##
 
 version: "3.5"
 services:
   database:
     image: postgres
     environment:
-      POSTGRES_USER: "root"
-      POSTGRES_PASSWORD: "password"
-      POSTGRES_DB: "dbt"
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbt
     ports:
-      - "5432:5432"
+      - 5432:5432
 
   test:
     build:
@@ -23,6 +28,7 @@ services:
         USER_ID: ${USER_ID:-}
         GROUP_ID: ${GROUP_ID:-}
     command: "/root/.virtualenvs/dbt/bin/pytest"
+    # command: "/usr/bin/pytest"
     environment:
       POSTGRES_TEST_HOST: "database"
     volumes:
@@ -30,6 +36,28 @@ services:
     working_dir: /usr/app
     depends_on:
       - database
+
+  dev_env:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dind.test
+    volumes:
+      - type: bind
+        source: .
+        target: /dbt-core
+      - type: bind
+        source: $HOME/.ssh
+        target: $HOME/.ssh
+        read_only: true
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    tty: true
+    network_mode: host
+    depends_on:
+      - database
+    working_dir: /dbt-core
+    entrypoint: sh
 
 networks:
   default:
