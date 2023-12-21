@@ -1,0 +1,19 @@
+#
+# dbt-core develop environments
+# (Python 3.12 だと DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated 言われるので 3.11で、、、)
+#
+FROM python:3.11.7
+
+#
+# Install 
+#
+RUN apt update && apt upgrade && \
+    apt install --no-install-recommends -y \
+        bash \
+        make \
+        caca-utils \
+        git \
+        postgresql && \
+    apt-get clean && \
+    pip install --upgrade pip && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
