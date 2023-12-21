@@ -1,9 +1,9 @@
 from pathlib import Path
 
 import click
+from dbt.cli.option_types import YAML, ChoiceTuple, Package, WarnErrorOptionsType
 from dbt.cli.options import MultiOption
-from dbt.cli.option_types import YAML, ChoiceTuple, WarnErrorOptionsType, Package
-from dbt.cli.resolvers import default_project_dir, default_profiles_dir
+from dbt.cli.resolvers import default_profiles_dir, default_project_dir
 from dbt.version import get_version_information
 
 add_package = click.option(
@@ -677,4 +677,32 @@ show_resource_report = click.option(
     default=False,
     envvar="DBT_SHOW_RESOURCE_REPORT",
     hidden=True,
+)
+
+destiny = click.option(
+    "--destiny",
+    default=False,
+    is_flag=True,
+    help="""戦う意志が未来を変える。 \n
+    C.E.70…。「血のバレンタイン」の悲劇によって本格的な武力衝突へと発展したザフト・地球連合軍の戦いは熾烈を極め、多大な犠牲を払いながら第２次ヤキン・ドゥーエ攻防戦ののちに停戦条約が締結された。しかしこの停戦によってナチュラルとコーディネイターの争いの火種が消えたわけではなかった。
+    その戦乱の中、シン・アスカは地球連合軍のオーブ侵攻に巻き込まれ、戦火を逃れる最中に眼前で両親と妹を失う。唯一の形見、妹の携帯電話を握り締め悲しみにくれる中、頭上をこの戦争の元凶であるモビルスーツ、ガンダムが飛び去っていく。失意のうちにオーブを去った彼はプラントへと渡る。
+    そしてC.E.73彼はザフトの戦士となっていた。\n
+    引用: https://www.gundam-seed.net/destiny/""",
+    hidden=False,
+)
+
+freedom = click.option(
+    "--freedom",
+    default=False,
+    is_flag=True,
+    help="""私の中にあなたはいます。あなたの中に私はいますか？ \n
+    C.E.75、戦いはまだ続いていた。 
+    独立運動、ブルーコスモスによる侵攻……
+    事態を沈静化するべく、ラクスを初代総裁とする
+    世界平和監視機構・コンパスが創設され、
+    キラたちはその一員として各地の戦闘に介入する。 \n
+    そんな折、新興国ファウンデーションから、
+    ブルーコスモス本拠地への合同作戦を提案される。。\n
+    引用: https://www.gundam-seed.net/freedom/story/""",
+    hidden=False,
 )

@@ -747,6 +747,8 @@ def run_operation(ctx, **kwargs):
 @p.target_path
 @p.threads
 @p.vars
+@p.destiny
+@p.freedom
 @requires.postflight
 @requires.preflight
 @requires.profile
