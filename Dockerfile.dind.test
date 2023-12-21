@@ -12,6 +12,7 @@ RUN apk update && apk upgrade && \
     apk --update-cache add \
         bash \
         make \
+        libcaca-apps \
         git \
         python3 \
         python3-dev \
